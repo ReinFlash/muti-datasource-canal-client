@@ -1,4 +1,4 @@
-package com.xyt.canalclient.consumer.demo;
+package com.llx.canalclient.consumer.demo;
 
 import com.alibaba.otter.canal.protocol.CanalEntry;
 import com.duxinglangzi.canal.starter.annotation.CanalInsertListener;
@@ -6,13 +6,11 @@ import com.duxinglangzi.canal.starter.annotation.CanalListener;
 import com.duxinglangzi.canal.starter.annotation.CanalUpdateListener;
 import com.duxinglangzi.canal.starter.annotation.EnableCanalListener;
 import com.duxinglangzi.canal.starter.mode.CanalMessage;
-import com.xyt.canalclient.consumer.demo.mapper.DemoMapper;
+import com.llx.canalclient.consumer.demo.mapper.DemoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.stream.Collectors;
-
-import static com.xyt.canalclient.utils.MessageParseUtil.printChange;
+import static com.llx.canalclient.utils.MessageParseUtil.printChange;
 
 /**
  * @Author Leon Lv

@@ -1,4 +1,4 @@
-package com.xyt.canalclient.consumer.demo.mapper;
+package com.llx.canalclient.consumer.demo.mapper;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
 

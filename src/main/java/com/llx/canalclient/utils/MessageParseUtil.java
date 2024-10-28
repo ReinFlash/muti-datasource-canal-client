@@ -1,4 +1,4 @@
-package com.xyt.canalclient.utils;
+package com.llx.canalclient.utils;
 
 import com.alibaba.otter.canal.protocol.CanalEntry;
 import com.duxinglangzi.canal.starter.mode.CanalMessage;
