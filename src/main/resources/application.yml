@@ -1,0 +1,23 @@
+server:
+  port: 8080 # server port
+
+spring:
+  profiles:
+    active: pre
+
+# mybatis plus configuration
+mybatis-plus:
+  typeAliasesPackage: com.xyt.consumers.**.domain
+  mapper-locations: classpath:mapper/**/*.xml
+  configuration:
+    cache-enabled: true                                 # 使全局的映射器启用或禁用缓存
+    use-generated-keys: true                            # 允许JDBC 支持自动生成主键
+    default-executor-type: reuse                        # 配置默认的执行器.SIMPLE就是普通执行器;REUSE执行器会重用预处理语句(prepared statements);BATCH执行器将重用语句并执行批量更新
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl # 指定 MyBatis 所用日志的具体实现
+    map-underscore-to-camel-case: true                  # 使用驼峰命名法转换字段
+logging:
+  config: classpath:logback-spring.xml
+#  file:
+#    name: xytCanalClient
+#    path: D:\workzone\logs
+

@@ -1,0 +1,63 @@
+spring:
+  canal:
+    instances:
+      example:
+        host: x.x.x.x           # canal-server host
+        port: 11111             # canal-server port
+        user-name: xxxxx        # canal username
+        password: xxxxx         # canal password
+        batch-size: 600         # canal-client data-fetching size every time
+        retry-count: 5          # canal-client retry times,if try several times and still can't connect canal-server,then disconnect
+        cluster-enabled: false  # canal-client enable cluster mode or not
+        zookeeper-address:      # effect when previous setting(cluster-enabled: true) enable,eg: 192.168.0.1:2181,192.168.0.2:2181,192.168.0.3:2181...
+        acquire-interval: 3000  # the interval for retrieving a message in milliseconds when the message is not fetched
+        # define what data of database or tables need to be fetched,for example,".*\\..*" means all database and all tables,"test\\..*" means all data in database test,"test.user" means all data in table user of database test.
+        subscribe: test_data_sync\\..*
+
+  datasource:
+    dynamic:
+      druid:
+        # 配置初始化线程数
+        initialSize: 5
+        # 最小线程数
+        minIdle: 5
+        # CPU核数+1，也可以大些但不要超过20，数据库加锁时连接过多性能下降
+        maxActive: 10
+        # 最大等待时间，内网：800，外网：1200（三次握手1s）
+        maxWait: 60000
+        # 连接可空闲存活时间（ms）
+        timeBetweenEvictionRunsMillis: 60000
+        # 连接保持空闲而不被驱逐的最长存活时间（ms）
+        minEvictableIdleTimeMillis: 300000
+        # 用来检测连接是否有效的sql，如果validationQuery为空，那么testOnBorrow、testOnReturn、testWhileIdle这三个参数都不会起作用
+        validationQuery: SELECT 1
+        # 建议配置为true，不影响性能，并且保证安全性。申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效；
+        testWhileIdle: true
+        # 建议配置为false，申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。
+        testOnBorrow: false
+        # 建议配置为false，归还连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能；
+        testOnReturn: false
+        # PSCache对支持游标的数据库性能提升巨大
+        poolPreparedStatements: true
+        # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+        filters: stat
+        # 保持minIdle数量的长连接
+        keepAlive: true
+        # 要启用PSCache，必须配置大于0，当大于0时，poolPreparedStatements自动触发修改为true。
+        # 在Druid中，不会存在Oracle下PSCache占用内存过多的问题，可以把这个数值配置大一些，比如说100。缺省值为-1
+        maxPoolPreparedStatementPerConnectionSize: 20
+        # 是否合并多个DruidDataSource的监控数据
+        useGlobalDataSourceStat: true
+        connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+      primary: default
+      datasource:
+        default: #默认数据源
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://x.x.x.x:3306/lvyishangcheng_test?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8&allowMultiQueries=true
+          username: xxx
+          password: xxx
+        targetOne: #目标数据源1
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://x.x.x.x:3306/test?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8&allowMultiQueries=true
+          username: xxx
+          password: xxx
